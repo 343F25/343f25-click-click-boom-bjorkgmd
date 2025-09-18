@@ -16,9 +16,14 @@
       background-color: wheat;
       border: 0.25rem solid #8EE4D7 ;
     }
+
+    .odd td {
+      background-color: #333333;
+    }
   </style>
 </head>
 <body>
+  <h1></h1>
   <table>
     <tbody>
       <tr>
@@ -155,6 +160,11 @@
     let lastSound = clickSound;
 
     // TODO: 1 - make it such that if any table cell is clicked, the onClick function below is executed
+    document.querySelectorAll('td').forEach(td => {
+      td.addEventListener('click', onClick)
+    })
+
+    const h1 = document.querySelector("h1");
 
     function onClick(ev) {
       lastSound.pause()
@@ -164,13 +174,17 @@
         // boom
         boomSound.play();
         lastSound = boomSound
+        h1.textContent = "BOOM";
       } else {
         clickSound.play();
         lastSound = clickSound
+        h1.textContent = "click";
       }
 
-      console.log(`ev in onClick ${ev}`)
+      console.log('ev in onClick', ev)
       // TODO: 2 - REMOVE THE TABLE CELL THAT WAS CLICKED
+      ev.target.parentElement.classList.toggle('odd');
+      ev.target.remove()
 
     }
   </script>
